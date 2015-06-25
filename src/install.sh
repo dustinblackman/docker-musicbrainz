@@ -22,32 +22,24 @@ postgresql-client-9.4 \
 postgresql-9.4 \
 postgresql-server-dev-9.4 \
 postgresql-contrib-9.4 \
-postgresql-plperl-9.4 -y
+postgresql-plperl-9.4 \
 
 # install git-core, memcached and redis-server
-apt-get install \
 git-core \
 memcached \
-redis-server -y
+redis-server \
 
 # install nodejs and npm
-apt-get install \
 nodejs \
 npm \
-nodejs-legacy -y
+nodejs-legacy \
 
 # install build essential and supervisor
 apt-get install \
 build-essential \
-supervisor -y
-
-# fetch source from git
-cd /opt
-git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
-cd /opt/musicbrainz
+supervisor \
 
 # install perl dependencies
-apt-get install \
 python-software-properties \
 software-properties-common \
 libxml2-dev \
@@ -56,16 +48,18 @@ libexpat1-dev \
 libdb-dev \
 libicu-dev \
 liblocal-lib-perl \
-cpanminus -y
+cpanminus \
+# install libjson
+libjson-xs-perl -y
+
+# fetch source from git
+cd /opt
+git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
+cd /opt/musicbrainz
 
 # enable local::lib
 echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
 source ~/.bashrc
-
-# install libjson
-apt-get update -qq
-apt-get install \
-libjson-xs-perl -y
 
 # install packages
 cpanm --installdeps --notest .
